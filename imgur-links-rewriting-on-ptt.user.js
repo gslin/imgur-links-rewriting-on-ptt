@@ -2,8 +2,9 @@
 // @name        Imgur links rewriting on Ptt
 // @namespace   https://github.com/gslin/imgur-links-rewriting-on-ptt
 // @match       https://www.ptt.cc/bbs/*
+// @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20210822.0
+// @version     0.20210822.1
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
