@@ -1,6 +1,8 @@
 # imgur-links-rewriting-on-ptt
 
-Rewrite imgur links to bypass referrer check.
+Rewrite Imgur links on Ptt web to bypass `Referer` check.
+
+改寫 Ptt 網頁版上的 Imgur 連結，繞過 `Referer` 檢查。
 
 ## Install
 
