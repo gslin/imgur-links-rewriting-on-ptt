@@ -4,7 +4,7 @@
 // @match       https://www.ptt.cc/bbs/*
 // @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20210822.1
+// @version     0.20210823.0
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
@@ -18,10 +18,19 @@
     };
 
     document.querySelectorAll('a[href^="https://imgur.com/"], a[href^="https://i.imgur.com/"]').forEach(async el => {
-        // Remove .richcontent if existing.
+        // Remove ".richcontent" if existing.
         const next = el.nextElementSibling;
         if (next && next.classList.contains('richcontent')) {
             next.remove();
+        }
+
+        // Remove ".richcontent" for ".push" case.
+        const el_p2 = el.parentElement.parentElement;
+        if (el_p2 && el_p2.classList.contains('push')) {
+            const el_p2_next = el_p2.nextElementSibling;
+            if (el_p2_next.classList.contains('richcontent')) {
+                el_p2_next.remove();
+            }
         }
 
         const href = el.getAttribute('href');
