@@ -59,7 +59,6 @@
             const img_url = og_image.getAttribute('content');
 
             imgur_id = get_imgur_id(img_url);
-            console.log(imgur_id);
         } else {
             // image case.
             imgur_id = get_imgur_id(href);
