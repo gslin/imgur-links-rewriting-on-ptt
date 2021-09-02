@@ -6,7 +6,7 @@ Rewrite Imgur links on Ptt web to bypass `Referer` check.
 
 ## Features
 
-* Support `https://imgur.com/a/` (i.e. album links) to show the first image.
+* Support `https://imgur.com/a/` & `https://imgur.com/gallery/` (i.e. album links) to show the first image.
 * Use WebP image format.
 * Use original size images.
 * Rewrite images caching by `cache.ptt.cc`, to `i.imgur.com` directly.
