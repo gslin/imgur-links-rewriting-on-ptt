@@ -4,7 +4,7 @@
 // @match       https://www.ptt.cc/bbs/*
 // @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20210902.0
+// @version     0.20210916.0
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
@@ -29,7 +29,7 @@
         const el_p2 = el.parentElement.parentElement;
         if (el_p2 && el_p2.classList.contains('push')) {
             const el_p2_next = el_p2.nextElementSibling;
-            if (el_p2_next.classList.contains('richcontent')) {
+            if (el_p2_next && el_p2_next.classList.contains('richcontent')) {
                 el_p2_next.remove();
             }
         }
