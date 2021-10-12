@@ -4,7 +4,7 @@
 // @match       https://www.ptt.cc/bbs/*
 // @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20210916.0
+// @version     0.20211012.0
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
@@ -13,8 +13,9 @@
 (() => {
     'use strict';
 
-    const get_imgur_id = url => {
-        return url.replace(/^https?:\/\/(i\.)?imgur\.com\/(\w+).*/, '$2');
+    const get_imgur_id_suffix = url => {
+        const a = url.match(/^https?:\/\/(i\.)?imgur\.com\/(\w+)\.?(\w+)?/);
+        return [a[2], a[3]];
     };
     const re_imgur_album = /^https:\/\/imgur\.com\/(a|gallery)\//;
 
@@ -36,6 +37,7 @@
 
         const href = el.getAttribute('href');
         let imgur_id = '';
+        let imgur_suffix = '';
 
         if (href.match(re_imgur_album)) {
             // album case.
@@ -59,10 +61,15 @@
             const og_image = doc.querySelector('meta[property="og:image"]');
             const img_url = og_image.getAttribute('content');
 
-            imgur_id = get_imgur_id(img_url);
+            [imgur_id, imgur_suffix] = get_imgur_id_suffix(img_url);
         } else {
             // image case.
-            imgur_id = get_imgur_id(href);
+            [imgur_id, imgur_suffix] = get_imgur_id_suffix(href);
+        }
+
+        // Change to webp only if it's not gif.
+        if (imgur_suffix !== 'gif') {
+            imgur_suffix = 'webp';
         }
 
         const container = document.createElement('div');
@@ -70,7 +77,7 @@
 
         const img = document.createElement('img');
         img.setAttribute('referrerpolicy', 'no-referrer');
-        img.setAttribute('src', 'https://i.imgur.com/' + imgur_id + '.webp');
+        img.setAttribute('src', 'https://i.imgur.com/' + imgur_id + '.' + imgur_suffix);
         container.appendChild(img);
 
         el.insertAdjacentElement('afterend', container);
