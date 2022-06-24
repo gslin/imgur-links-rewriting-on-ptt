@@ -4,7 +4,7 @@
 // @match       https://www.ptt.cc/bbs/*
 // @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20220624.0
+// @version     0.20220625.0
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
@@ -21,9 +21,15 @@
 
     document.querySelectorAll('a[href^="https://imgur.com/"], a[href^="https://i.imgur.com/"], a[href^="https://m.imgur.com/"]').forEach(async el => {
         // Remove ".richcontent" if existing.
-        const next = el.parentElement.nextElementSibling;
+        const next = el.nextElementSibling;
         if (next && next.classList.contains('richcontent')) {
             next.remove();
+        }
+
+        // Remove ".richcontent" if existing.
+        const next2 = el.parentElement.nextElementSibling;
+        if (next2 && next2.classList.contains('richcontent')) {
+            next2.remove();
         }
 
         // Remove ".richcontent" for ".push" case.
