@@ -4,7 +4,7 @@
 // @match       https://www.ptt.cc/bbs/*
 // @match       https://www.ptt.cc/man/*
 // @grant       GM_xmlhttpRequest
-// @version     0.20240912.0
+// @version     0.20240912.1
 // @author      Gea-Suan Lin <gslin@gslin.com>
 // @description Rewrite imgur links to bypass referrer check.
 // @license     MIT
@@ -19,7 +19,7 @@
     };
     const re_imgur_album = /^https?:\/\/imgur\.com\/(a|gallery)\//;
 
-    document.querySelectorAll('a[href^="https://imgur.com/"], a[href^="https://i.imgur.com/"], a[href^="https://m.imgur.com/"]').forEach(async el => {
+    document.querySelectorAll('a[href*="//imgur.com/"], a[href*="//i.imgur.com/"], a[href*="//m.imgur.com/"]').forEach(async el => {
         // Remove ".richcontent" if existing.
         const next = el.nextElementSibling;
         if (next && next.classList.contains('richcontent')) {
